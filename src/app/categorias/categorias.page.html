@@ -9,4 +9,20 @@
 
 <ion-content padding>
   <p>Página de categorias</p>
+
+  <ion-list>
+ 
+    <ion-item button *ngFor="let item of (results | async)">
+
+ 
+      <ion-label text-wrap>
+        <h3>{{ item.id }}</h3>
+        {{ item.nome }}
+      </ion-label>
+ 
+    </ion-item>
+ 
+  </ion-list>
+
+
 </ion-content>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CredenciaisDTO } from 'src/model/credenciais.dto';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-folder',
@@ -9,13 +11,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class FolderPage implements OnInit {
   public folder: string;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  creds : CredenciaisDTO = {
+    email : "",
+    senha : ""
+  }
+
+  constructor(private activatedRoute: ActivatedRoute, 
+    private router: Router,
+    private auth: AuthService) { }
 
   ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   login() {
+    console.log(this.creds);
+    this.auth.authenticate(this.creds).subscribe(response => {
+      console.log(response.headers.get('Authorization'));
+      
+    },
+    error => {});
+
     this.router.navigate(['categorias']);
   }
 }
