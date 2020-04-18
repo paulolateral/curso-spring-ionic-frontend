@@ -27,8 +27,7 @@ export class FolderPage implements OnInit {
   login() {
     console.log(this.creds);
     this.auth.authenticate(this.creds).subscribe(response => {
-      console.log(response.headers.get('Authorization'));
-      
+      this.auth.successfullLogin(response.headers.get('Authorization'));     
     },
     error => {});
 
