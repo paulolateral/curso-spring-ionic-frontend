@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { API_CONFIG } from 'src/config/api.config';
 import { CategoriaDTO } from 'src/model/categoria.dto';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { StorageService } from '../storage.service';
 
 export enum SearchType {
     all = '',
@@ -22,7 +23,7 @@ export class CategoriaService {
     url = 'http://www.omdbapi.com/';
     apiKey = ''
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private storage: StorageService) {
 
     }
 
@@ -33,10 +34,12 @@ export class CategoriaService {
     }
 
     findAll() : Observable<CategoriaDTO[]> {
-        return this.http.get<CategoriaDTO[]>("http://curso-spring-ionic-paulolatera.herokuapp.com/categorias")
-        .pipe(
-            map(res => res )
-        );
+  
+      let token = this.storage.getLocalUser().token;
+      let authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
+
+        return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseUrl}/categorias`,
+            {'headers' : authHeader});
     }
 
     login() {
@@ -46,7 +49,7 @@ export class CategoriaService {
             senha: '123'
           };
      
-          this.http.post('http://localhost:8080/' + 'login', data)
+          this.http.post(`${API_CONFIG.bucketBaseUrl}/` + 'login', data)
             .subscribe((result: any) => {
               resolve(result.json());
             },

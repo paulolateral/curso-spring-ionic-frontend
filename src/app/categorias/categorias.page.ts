@@ -27,7 +27,7 @@ export class CategoriasPage implements OnInit {
       alert(data);
       
     }); */
-    //this.results = this.categoriaService.findAll();
+    this.results = this.categoriaService.findAll();
 
    //let categorias = this.categoriaService.findAll();
     ///then((categorias: CategoriaDTO[]) => {
