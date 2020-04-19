@@ -12,6 +12,7 @@ import { CategoriaService } from 'src/services/domain/categoria.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
+import { ClienteService } from 'src/services/domain/cliente.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,8 @@ import { StorageService } from 'src/services/storage.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriaService,
     AuthService,
-    StorageService
+    StorageService,
+    ClienteService
   ],
   bootstrap: [AppComponent]
 })
