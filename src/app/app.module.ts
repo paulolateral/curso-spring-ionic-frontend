@@ -13,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/services/auth.service';
 import { StorageService } from 'src/services/storage.service';
 import { ClienteService } from 'src/services/domain/cliente.service';
-import { AuthInterceptor } from './interceptors/auth-interceptor';
+import { AuthInterceptor } from './interceptors/auth-interceptor';import { ErrorInterceptor } from './interceptors/error-Interceptor';
+;
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     CategoriaService,
     AuthInterceptor,
+    ErrorInterceptor,
     AuthService,
     StorageService,
     ClienteService
